@@ -11,11 +11,11 @@ MMS::Mail::Message::Parsed - A class representing a parsed MMS (or picture) mess
 
 =head1 VERSION
 
-Version 0.01
+Version 0.02
 
 =cut
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 =head1 SYNOPSIS
 
@@ -75,6 +75,10 @@ Returns the MMS subject when invoked with no supplied parameter.  When supplied 
 
 Returns the MMS body text when invoked with no supplied parameter.  When supplied with a parameter it sets the object property to the supplied parameter.  This returns the body_text property if a text property has not been explicitly set.
 
+=item phone_number STRING
+
+Returns the MMS mobile number the message was sent from when invoked with no supplied parameter.  When supplied with a parameter it sets the object property to the supplied parameter.  This property is not set by the Provider class but it set by it's subclasses.
+
 =item retrieve_attachments STRING
 
 Expects a mime-type to be passed as an argument and a regular expression match using the supplied string is applied to each attachment in the attachment stack of the message object and a reference to an array of objects where the mime-type matches the supplied string is returned.  In the event no attachment was matched to the supplied mime-type an undef value is returned.
@@ -111,6 +115,10 @@ Copyright 2005 Rob Lee, all rights reserved.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.
+
+=head1 SEE ALSO
+
+L<MMS::Mail::Message>, L<MMS::Mail::Message::Parsed>, L<MMS::Mail::Provider>, L<MMS::Mail::Provider>
 
 =cut
 
@@ -302,6 +310,16 @@ sub retrieve_attachments {
   } 
 
 }
+
+sub phone_number {
+
+  my $self = shift;
+
+  if (@_) { $self->{phone_number} = shift }
+  return $self->{phone_number};
+
+}
+
 
 
 1; # End of MMS::Mail::Message::Parsed

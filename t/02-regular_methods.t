@@ -1,6 +1,6 @@
 #!perl -T
 
-use Test::More tests => 21;
+use Test::More tests => 22;
 use MMS::Mail::Message::Parsed;
 
 my $message = new MMS::Mail::Message::Parsed;
@@ -30,3 +30,6 @@ is($message->to,"To");
 is($message->text,"Text");
 
 is_deeply($message->retrieve_attachments,[]);
+
+is($message->phone_number("00000000000"),"00000000000");
+

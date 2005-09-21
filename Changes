@@ -1,5 +1,7 @@
 Revision history for MMS-Mail-Message-Parsed
 
-0.01    12-Aug-2004 / 15:00 
+0.01    17-Feb-2005 / 17:30 
+        Added mobile_number property/getter/setter for storing the mobile number the message was sent from.
+0.01    12-Aug-2005 / 15:00 
         First version, released on an unsuspecting world.  Module is based on previous CPAN release MMS::MailMessage::ProviderParsed.
 

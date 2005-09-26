@@ -11,11 +11,11 @@ MMS::Mail::Message::Parsed - A class representing a parsed MMS (or picture) mess
 
 =head1 VERSION
 
-Version 0.02
+Version 0.03
 
 =cut
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 =head1 SYNOPSIS
 
@@ -54,26 +54,6 @@ Returns an array reference to an array of images from the message.
 =item videos
 
 Returns an array reference to an array of videos from the message.
-
-=item datetime STRING
-
-Returns the time and date the MMS was sent when invoked with no supplied parameter.  When supplied with a parameter it sets the object property to the supplied parameter.  This returns the header_datetime property if a datetime property has not been explicitly set.
-
-=item from STRING
-
-Returns the sending email address the MMS was sent from when invoked with no supplied parameter.  When supplied with a parameter it sets the object property to the supplied parameter.  This returns the header_from property if a from property has not been explicitly set.
-
-=item to STRING
-
-Returns the recieving email address the MMS was sent to when invoked with no supplied parameter.  When supplied with a parameter it sets the object property to the supplied parameter.  This returns the header_to property if a to property has not been explicitly set.
-
-=item subject STRING
-
-Returns the MMS subject when invoked with no supplied parameter.  When supplied with a parameter it sets the object property to the supplied parameter.  This returns the header_subject property if a subject property has not been explicitly set.
-
-=item text STRING
-
-Returns the MMS body text when invoked with no supplied parameter.  When supplied with a parameter it sets the object property to the supplied parameter.  This returns the body_text property if a text property has not been explicitly set.
 
 =item phone_number STRING
 
@@ -140,120 +120,21 @@ sub new {
   return $self;
 }
 
-sub subject {
-
-  my $self = shift;
-  my $subject = shift;
-
-  unless (defined $subject) {
-    if (exists($self->{subject})) {
-      return $self->{subject};
-    } elsif (defined $self->header_subject) {
-      return $self->header_subject;
-    } else {
-      return undef;
-    }
-  }
-  $self->{subject} = $subject;
-}
-
-sub to {
-
-  my $self = shift;
-  my $to = shift;
-
-  unless (defined $to) {
-    if (exists($self->{to})) {
-      return $self->{to};
-    } elsif (defined $self->header_to) {
-      return $self->header_to;
-    } else {
-      return undef;
-    }
-  }
-  $self->{to} = $to;
-}
-
-sub from {
-
-  my $self = shift;
-  my $from = shift;
-
-  unless (defined $from) {
-    if (exists($self->{from})) {
-      return $self->{from};
-    } elsif (defined $self->header_from) {
-      return $self->header_from;
-    } else {
-      return undef;
-    }
-  }
-  $self->{from} = $from;
-}
-
-sub datetime {
-
-  my $self = shift;
-  my $datetime = shift;
-
-  unless (defined $datetime) {
-    if (exists($self->{datetime})) {
-      return $self->{datetime};
-    } elsif (defined $self->header_datetime) {
-      return $self->header_datetime;
-    } else {
-      return undef;
-    }
-  }
-  $self->{datetime} = $datetime;
-}
-
-sub text {
-
-  my $self = shift;
-  my $text = shift;
-
-  unless (defined $text) {
-    if (exists($self->{text})) {
-      return $self->{text};
-    } elsif (defined $self->body_text) {
-      return $self->body_text;
-    } else {
-      return undef;
-    }
-  }
-  $self->{text} = $text;
-}
-
 sub images {
 
   my $self = shift;
-  my $images = shift;
 
-  unless (defined $images) {
-    if (exists($self->{images})) {
-      return $self->{images};
-    } else {
-      return undef;
-    }
-  }
-  $self->{images}=$images;
+  if (@_) { $self->{images} = shift }
+  return $self->{images};
   
 }
 
 sub videos {
 
   my $self = shift;
-  my $videos = shift;
 
-  unless (defined $videos) {
-    if (exists($self->{videos})) {
-      return $self->{videos};
-    } else {
-      return undef;
-    }
-  }
-  $self->{videos}=$videos;
+  if (@_) { $self->{videos} = shift }
+  return $self->{videos};
 
 }
 

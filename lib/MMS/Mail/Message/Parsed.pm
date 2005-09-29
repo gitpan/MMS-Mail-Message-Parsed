@@ -11,11 +11,11 @@ MMS::Mail::Message::Parsed - A class representing a parsed MMS (or picture) mess
 
 =head1 VERSION
 
-Version 0.03
+Version 0.04
 
 =cut
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 =head1 SYNOPSIS
 
@@ -29,7 +29,7 @@ The MMS::Mail::Message::Parsed class inherits all the methods from it's parent c
 
 =over
 
-=item new()
+=item C<new()>
 
 Return a new MMS::Mail::Message::Parsed object.
 
@@ -39,27 +39,27 @@ Return a new MMS::Mail::Message::Parsed object.
 
 =over
 
-=item add_image MIME::Entity
+=item C<add_image> MIME::Entity
 
 Adds the supplied MIME::Entity attachment to the image stack for the message.  This method is mainly used by the MMS::Mail::Provider class to add images while parsing.
 
-=item add_video MIME::Entity
+=item C<add_video> MIME::Entity
 
 Adds the supplied MIME::Entity attachment to the video stack for the message.  This method is mainly used by the MMS::Mail::Provider class to add videos while parsing.
 
-=item images
+=item C<images>
 
 Returns an array reference to an array of images from the message.
 
-=item videos
+=item C<videos>
 
 Returns an array reference to an array of videos from the message.
 
-=item phone_number STRING
+=item C<phone_number> STRING
 
-Returns the MMS mobile number the message was sent from when invoked with no supplied parameter.  When supplied with a parameter it sets the object property to the supplied parameter.  This property is not set by the Provider class but it set by it's subclasses.
+Returns the MMS mobile number the message was sent from when invoked with no supplied parameter.  When supplied with a parameter it sets the object property to the supplied parameter.  This property is not set by the MMS::Mail::Provider class but is set by it's subclasses.
 
-=item retrieve_attachments STRING
+=item C<retrieve_attachments> STRING
 
 Expects a mime-type to be passed as an argument and a regular expression match using the supplied string is applied to each attachment in the attachment stack of the message object and a reference to an array of objects where the mime-type matches the supplied string is returned.  In the event no attachment was matched to the supplied mime-type an undef value is returned.
 
@@ -79,7 +79,7 @@ your bug as I make changes.
 
 =head1 NOTES
 
-To quote the perl artistic license ('perldoc perlartistic') :
+Please read the Perl artistic license ('perldoc perlartistic') :
 
 10. THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR IMPLIED
     WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED WARRANTIES
@@ -98,7 +98,7 @@ under the same terms as Perl itself.
 
 =head1 SEE ALSO
 
-L<MMS::Mail::Message>, L<MMS::Mail::Message::Parsed>, L<MMS::Mail::Provider>, L<MMS::Mail::Provider>
+L<MMS::Mail::Message>, L<MMS::Mail::Message::Parsed>, L<MMS::Mail::Provider>
 
 =cut
 

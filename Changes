@@ -1,5 +1,7 @@
 Revision history for MMS-Mail-Message-Parsed
 
+0.04	29-Sep-2005 / 11:17
+	Improved pod by adding formatting codes
 0.03	22-Sep-2005 / 12:00
         Removed 'auto populate' feature for header_ methods
         Removed subject, text, from, to and datetime methods as these never change in the message or are available from the original MMS::Mail::Message::Parsed object.  This also means Provider classes do not have to populate these properties now the 'auto populate' feature has been removed.

@@ -11,11 +11,11 @@ MMS::Mail::Message::Parsed - A class representing a parsed MMS (or picture) mess
 
 =head1 VERSION
 
-Version 0.04
+Version 0.05
 
 =cut
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 =head1 SYNOPSIS
 
@@ -41,33 +41,33 @@ Return a new MMS::Mail::Message::Parsed object.
 
 =item C<add_image> MIME::Entity
 
-Adds the supplied MIME::Entity attachment to the image stack for the message.  This method is mainly used by the MMS::Mail::Provider class to add images while parsing.
+Instance method - Adds the supplied MIME::Entity attachment to the image stack for the message.  This method is mainly used by the MMS::Mail::Provider class to add images while parsing.
 
 =item C<add_video> MIME::Entity
 
-Adds the supplied MIME::Entity attachment to the video stack for the message.  This method is mainly used by the MMS::Mail::Provider class to add videos while parsing.
+Instance method - Adds the supplied MIME::Entity attachment to the video stack for the message.  This method is mainly used by the MMS::Mail::Provider class to add videos while parsing.
 
 =item C<images>
 
-Returns an array reference to an array of images from the message.
+Instance method - Returns an array reference to an array of images from the message.
 
 =item C<videos>
 
-Returns an array reference to an array of videos from the message.
+Instance method - Returns an array reference to an array of videos from the message.
 
 =item C<phone_number> STRING
 
-Returns the MMS mobile number the message was sent from when invoked with no supplied parameter.  When supplied with a parameter it sets the object property to the supplied parameter.  This property is not set by the MMS::Mail::Provider class but is set by it's subclasses.
+Instance method - Returns the MMS mobile number the message was sent from when invoked with no supplied parameter.  When supplied with a parameter it sets the object property to the supplied parameter.  This property is not set by the MMS::Mail::Provider class but is set by it's subclasses.
 
 =item C<retrieve_attachments> STRING
 
-Expects a mime-type to be passed as an argument and a regular expression match using the supplied string is applied to each attachment in the attachment stack of the message object and a reference to an array of objects where the mime-type matches the supplied string is returned.  In the event no attachment was matched to the supplied mime-type an undef value is returned.
+Instance method - Expects a mime-type to be passed as an argument and a regular expression match using the supplied string is applied to each attachment in the attachment stack of the message object and a reference to an array of objects where the mime-type matches the supplied string is returned.  In the event no attachment was matched to the supplied mime-type an undef value is returned.
 
 =back
 
 =head1 AUTHOR
 
-Rob Lee, C<< <robl@robl.co.uk> >>
+Rob Lee, C<< <robl at robl.co.uk> >>
 
 =head1 BUGS
 
@@ -102,40 +102,33 @@ L<MMS::Mail::Message>, L<MMS::Mail::Message::Parsed>, L<MMS::Mail::Provider>
 
 =cut
 
+my @Accessors=(	"phone_number",
+		"images",
+		"videos"
+		);
+
+# Class data retrieval
+sub _Accessors {
+  return \@Accessors;
+}
+
+__PACKAGE__->mk_accessors(@{__PACKAGE__->_Accessors});
+
 sub new {
 
-  my $class = shift;
-  my $message = shift;
-  my $self  = $class->SUPER::new();
+  my $type = shift;
 
-  bless ($self, $class);
+  my $self = {};
+  $self = SUPER::new $type( @_ );
 
-  if (defined($message)) {
-    $self->SUPER::_clone_data($message);
+  if (defined($self->{message})) {
+    $self->SUPER::_clone_data($self->{message});
   }
 
   $self->{images} = [];
   $self->{videos} = [];
 
   return $self;
-}
-
-sub images {
-
-  my $self = shift;
-
-  if (@_) { $self->{images} = shift }
-  return $self->{images};
-  
-}
-
-sub videos {
-
-  my $self = shift;
-
-  if (@_) { $self->{videos} = shift }
-  return $self->{videos};
-
 }
 
 sub add_image {
@@ -191,16 +184,5 @@ sub retrieve_attachments {
   } 
 
 }
-
-sub phone_number {
-
-  my $self = shift;
-
-  if (@_) { $self->{phone_number} = shift }
-  return $self->{phone_number};
-
-}
-
-
 
 1; # End of MMS::Mail::Message::Parsed

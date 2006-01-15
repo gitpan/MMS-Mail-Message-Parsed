@@ -10,7 +10,7 @@ WriteMakefile(
     PL_FILES            => {},
     PREREQ_PM => {
         'Test::More' => 0,
-	'MMS::Mail::Message' => 0,
+	'MMS::Mail::Message' => 0.05,
     },
     dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
     clean               => { FILES => 'MMS-Mail-Message-Parsed-*' },
